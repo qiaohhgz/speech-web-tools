@@ -6,22 +6,30 @@
 </head>
 <body>
 <input type="text" name="msg" id="msg"/>
-<button onclick="ws.send(msg.value)">Send</button>
+<button onclick="send()">Send</button>
 
-<script type="javascript">
-    var ws = new WebSocket("ws://localhost:8080/speech");
-    ws.onopen = function (event) {
-        console.log("onopen");
-    };
-    ws.onmessage = function (data) {
-        console.log("getMsg: " + data);
-    };
-    ws.onerror = function (event) {
-        console.log("onerror");
-    };
-    ws.onclose = function (obj) {
-        console.log("onclose");
-    };
+<script type="text/javascript">
+    var ws;
+    function send() {
+        var msg = document.getElementById("msg").value;
+       if(ws) {
+           ws.send(msg);
+       }else{
+           ws = new WebSocket("ws://localhost:8080/speech/websocket");
+           ws.onopen = function (event) {
+               console.log("onopen");
+           };
+           ws.onmessage = function (data) {
+               console.log("getMsg: " + data);
+           };
+           ws.onerror = function (event) {
+               console.log("onerror");
+           };
+           ws.onclose = function (obj) {
+               console.log("onclose");
+           };
+       }
+    }
 </script>
 </body>
 </html>

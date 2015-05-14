@@ -7,8 +7,8 @@
 <body>
 <div id="msg"></div>
 
-<script type="javascript">
-    var ws = new WebSocket("ws://localhost:8080/speech");
+<script type="text/javascript">
+    var ws = new WebSocket("ws://localhost:8080/speech/socket");
     ws.onopen = function (event) {
         console.log("onopen");
     };
