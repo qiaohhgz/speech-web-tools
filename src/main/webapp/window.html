@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Window</title>
+</head>
+<body>
+<div id="msg"></div>
+
+<script type="javascript">
+    var ws = new WebSocket("ws://localhost:8080/speech");
+    ws.onopen = function (event) {
+        console.log("onopen");
+    };
+    ws.onmessage = function (data) {
+        console.log(data);
+        document.getElementById("msg").innerHTML = data;
+    };
+    ws.onerror = function (event) {
+        console.log("onerror");
+    };
+    ws.onclose = function (obj) {
+        console.log("onclose");
+    };
+</script>
+</body>
+</html>
