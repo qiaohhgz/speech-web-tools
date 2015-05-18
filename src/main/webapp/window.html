@@ -5,23 +5,25 @@
     <title>Window</title>
 </head>
 <body>
-<div id="msg"></div>
+<div id="debug"></div>
 
+<script type="text/javascript" src="jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="api/remote-control-api-1.0.js"></script>
 <script type="text/javascript">
-    var ws = new WebSocket("ws://localhost:8080/speech/socket");
-    ws.onopen = function (event) {
-        console.log("onopen");
-    };
-    ws.onmessage = function (data) {
-        console.log(data);
-        document.getElementById("msg").innerHTML = data;
-    };
-    ws.onerror = function (event) {
-        console.log("onerror");
-    };
-    ws.onclose = function (obj) {
-        console.log("onclose");
-    };
+    var ws;
+    if (window.WebSocket) {
+        ws = new WebSocket("ws://" + getPath() + "window.ws");
+        ws.onmessage = function (obj) {
+            onMessage(JSON.parse(obj.data));
+        };
+        debug("Connection successful");
+    } else {
+        debug("Connection failed");
+    }
+    function onMessage(data) {
+        debug(data.action);
+    }
 </script>
 </body>
 </html>
