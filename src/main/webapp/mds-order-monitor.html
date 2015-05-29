@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+
+    <title>订单告警项目</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="reveal/css/reveal.css">
+    <link rel="stylesheet" href="reveal/css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="reveal/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'reveal/css/print/pdf.css' : 'reveal/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="reveal/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section>
+            <h1>订单监控项目</h1>
+
+            <p>
+                <span>2015-05-28</span>
+            </p>
+        </section>
+
+        <section>
+            <h2>都讲哪些内容？</h2>
+
+            <ul>
+                <li>项目整体结构</li>
+                <li>漏单告警</li>
+                <li>订单状态一致性告警</li>
+                <li>库存未确认告警</li>
+                <li>滞留超时订单告警</li>
+                <li>滞留百分比告警</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>现阶段项目整体结构 -> </h2>
+
+            <p>&nbsp;</p>
+        </section>
+
+        <section data-background="images/all.png" data-background-size="100%">
+            <h2>&nbsp;</h2>
+
+            <p>&nbsp;</p>
+        </section>
+
+        <section>
+            <h2>现有告警支持哪些店铺 -> </h2>
+
+            <p>&nbsp;</p>
+        </section>
+
+        <section data-background="images/monitor-table.png" data-background-size="100%">
+            <h2>&nbsp;</h2>
+
+            <p>&nbsp;</p>
+        </section>
+
+        <section>
+            <section>
+                <h2>漏单告警</h2>
+
+                <p>7天内，30分钟前的新订单</p>
+            </section>
+            <section>
+                <h2>漏单告警-漏抓单</h2>
+
+                <p>订单没有写过错误备注，没有查到对应的订单编号，并且打标要是 0(灰色) 或 3(绿色) </p>
+                <img src="images/MissOrder-1.png"/>
+            </section>
+            <section>
+                <h2>根据创建失败原因分发到相关人员</h2>
+                <ul>
+                    <li>订单明细发生异常</li>
+                    <li>商品SKU没有维护</li>
+                    <li>区域没有维护</li>
+                    <li>结算主体没有维护</li>
+                    <li>...</li>
+                </ul>
+                <img src="images/MissOrder-2.png"/>
+            </section>
+        </section>
+
+        <section>
+            <h2>淘宝状态一致性告警</h2>
+
+            <p>14天以内的订单，30分钟前的新订单</p>
+
+            <p>依赖订单快照</p>
+
+            <img src="images/OrderStatusConsistencyMonitor.png"/>
+        </section>
+
+        <section>
+            <h2>库存未确认告警</h2>
+
+            <p>商品超卖，有库存但是锁库失败</p>
+
+            <img src="images/StockNoConfirmOrderMonitor.png"/>
+        </section>
+
+        <section>
+            <h2>滞留超时订单告警</h2>
+
+            <p>指定状态的订单滞留超过最大时间限制的时候告警这些订单</p>
+
+            <img src="images/OrderDelayTimeMonitor.png"/>
+        </section>
+
+        <section>
+            <h2>滞留百分比告警</h2>
+
+            <p>一定时间内指定状态的订单在滞留数量超过规定百分比的时候告警</p>
+
+            <img src="images/OrderDelayPercentMonitor.png"/>
+        </section>
+
+        <section style="text-align: center;">
+            <h1>The End</h1>
+
+            <p>
+                <small>Copyright ©2015-2016 JimQiao, All Rights Reserved</small>
+            </p>
+        </section>
+
+    </div>
+
+</div>
+
+<script src="reveal/lib/js/head.min.js"></script>
+<script src="reveal/js/reveal.js"></script>
+<script type="text/javascript" src="jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="api/remote-control-api-1.0.js"></script>
+
+<script type="text/javascript">
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            {
+                src: 'reveal/lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {
+                src: 'reveal/plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'reveal/plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'reveal/plugin/highlight/highlight.js', async: true, condition: function () {
+                return !!document.querySelector('pre code');
+            }, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            },
+            {src: 'reveal/plugin/zoom-js/zoom.js', async: true},
+            {src: 'reveal/plugin/notes/notes.js', async: true}
+        ]
+    });
+
+    var ws;
+    if (window.WebSocket) {
+        ws = new WebSocket("ws://" + getPath() + "window.ws");
+        ws.onmessage = function (obj) {
+            onMessage(JSON.parse(obj.data));
+        };
+        debug("Connection successful");
+    } else {
+        debug("Connection failed");
+    }
+    /* Doc : https://github.com/hakimel/reveal.js  */
+    function onMessage(data) {
+//        debug(data);
+        if (data.action == RemoteControl.UP) {
+            Reveal.up();
+        } else if (data.action == RemoteControl.DOWN) {
+            Reveal.down();
+        } else if (data.action == RemoteControl.LEFT) {
+            Reveal.left();
+        } else if (data.action == RemoteControl.RIGHT) {
+            Reveal.right();
+        }
+    }
+</script>
+
+</body>
+</html>

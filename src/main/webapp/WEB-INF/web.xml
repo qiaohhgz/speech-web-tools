@@ -6,14 +6,8 @@
          version="2.5">
 
     <display-name>Simple web application</display-name>
-
-    <servlet>
-        <servlet-name>ClientServlet</servlet-name>
-        <servlet-class>com.jim.socket.speech.servlet.ClientServlet</servlet-class>
-    </servlet>
     
-    <servlet-mapping>
-        <servlet-name>ClientServlet</servlet-name>
-        <url-pattern>/client.do</url-pattern>
-    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
 </web-app>
