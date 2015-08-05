@@ -1,10 +1,197 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+
+    <title>怎样输出有价值的日志</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="reveal/css/reveal.css">
+    <link rel="stylesheet" href="reveal/css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="reveal/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'reveal/css/print/pdf.css' : 'reveal/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="reveal/lib/js/html5shiv.js"></script>
+    <![endif]-->
 </head>
+
 <body>
+
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section>
+            <h1>怎样输出有价值的日志</h1>
+
+            <p>
+                <span>2015-08-05</span>
+            </p>
+        </section>
+
+        <section>
+            <h2>大纲</h2>
+
+            <ul>
+                <li>十万个为什么？</li>
+                <li>你会如何做？</li>
+                <li>MDC（ThreadContext）</li>
+                <li>脑图工具分享</li>
+                <li>总结</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>十万个为什么？</h2>
+
+            <ul>
+                <li class="fragment">为什么使用要输出日志？</li>
+                <li class="fragment">为什么我们写的日志难以阅读？</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>你会如何做？</h2>
+
+            <ul>
+                <li class="fragment">如何复用你log中输出的数据？</li>
+                <li class="fragment">如何记录一个web用户的后台执行流程，以及涉及到的用户属性？</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>MDC-效果1</h2>
+
+            <img data-src="images/log4j/1.png">
+        </section>
+
+        <section>
+            <h2>MDC-效果2</h2>
+
+            <img data-src="images/log4j/2.png">
+        </section>
+
+        <section>
+            <h2>MDC-简单使用</h2>
+
+            <pre>
+                <code class="java">
+                    // 添加数据
+                    MDC.put("ip", "192.168.1.1");
+                    MDC.put("name", "张三");
+                    MDC.put("age", "123");
+                    LOG.info("添加用户");
+                    // 获取数据
+                    MDC.get("name");
+                    // 删除某个数据
+                    MDC.remove("name");
+                    LOG.info("删除名称");
+                    // 清空所有的
+                    MDC.clear();
+
+                    LOG.info("清空所有");
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>MDC-配置说明</h2>
+
+            <ul>
+                <li>PatternLayout 中占位符配置</li>
+                <li><span style="color: red">%X</span> 输出所有MDC填充的变量</li>
+                <li><span style="color: red">%{key}</span> 输出指定变量的值</li>
+            </ul>
+            <img src="images/log4j/4.png"/>
+            <small>MDC为后期日志汇总、分析做铺垫</small>
+        </section>
+
+        <section>
+            <h2>日志汇总、分析</h2>
+
+            <p>MDC为后期日志汇总、分析做铺垫</p>
+        </section>
+
+        <section>
+            <h2>Kibana web ui</h2>
+
+            <img src="images/log4j/kibana.gif" />
+        </section>
+
+        <section>
+            <h2>脑图-好处</h2>
+            <p style="text-align: left;color: red">
+                思维暂存的作用
+            </p>
+            <p>
+                当人在思考一个复杂的事物的时候，会冒出很多很多想法，但是人的工作记忆（working memory）能力又十分有限，所以如果你没有很好的方式把灵感都记录下来的话，它们就很可能马上溜走，无影无踪。而思维导图鼓励你用一种灵活的方式，把想到的东西都记录下来，所以一般人做完一张思维脑图，往往会惊讶于自己竟能收获这么多样和丰富的想法。
+            </p>
+        </section>
+
+        <section>
+            <h2>Mindmup-业务逻辑</h2>
+            <img src="images/log4j/6.png" />
+        </section>
+        <section>
+            <h2>Mindmup-会议记录</h2>
+            <img src="images/log4j/7.png" />
+        </section>
+        <section>
+            <h2>Mindmup-不是万能的</h2>
+            <ul>
+                <li>在线地址 <a href="https://www.mindmup.com/">https://www.mindmup.com/</a></li>
+                <li><span style="color: green">优点</span>：跨平台，使用简单，支持远端存储、分享，方便导入导出</li>
+                <li><span style="color: red">缺点</span>：翻墙使用更流畅（可以用<a href="http://naotu.baidu.com/">百度脑图</a>代替）</li>
+                <li><span style="color: blue">建议</span>：按需使用，毕竟没有一款软件是万能的</li>
+            </ul>
+        </section>
+        <section>
+            <h2>总结</h2>
+            <ul>
+                <li>只有输出有<span style="color: red">价值</span>的日志，才能<span style="color: red">快速</span>定位问题所在，节省查问题时间</li>
+                <li>编写有意义的日志代码，活用log4j的 debug,info,warn,error</li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>谢谢</h1>
+
+            <p>
+                <small>Copyright ©2015-2016 JimQiao, All Rights Reserved</small>
+            </p>
+        </section>
+
+    </div>
+
+</div>
+
+<script src="reveal/lib/js/head.min.js"></script>
+<script src="reveal/js/reveal.js"></script>
+<script type="text/javascript" src="jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="api/remote-control-api-1.0.js"></script>
+<script type="text/javascript" src="js/window.js"></script>
 
 </body>
 </html>

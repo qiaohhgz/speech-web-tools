@@ -1,5 +1,6 @@
 package com.jim.socket.speech.websocket;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jim.socket.speech.AppContext;
 
 import javax.websocket.OnClose;
@@ -9,7 +10,9 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * JimQiao
@@ -30,7 +33,7 @@ public class WindowApp extends AbstractApp {
         }
         System.out.println("window on msg " + message);
         for (Session client : clients) {
-            if(client.equals(session) == false){
+            if (client.equals(session) == false) {
                 System.out.println("sent to client " + client.getId());
                 send(client, message);
             }
@@ -41,6 +44,17 @@ public class WindowApp extends AbstractApp {
     public void onOpen(Session session) {
         System.out.println("Client connected");
         clients.add(session);
+//        try {
+//            HashMap<Object, String> map = new HashMap<>();
+//            map.put("action","id");
+//            map.put("id", session.getId());
+//            ObjectMapper mapper = new ObjectMapper();
+//            String json = mapper.writeValueAsString(map);
+//            System.out.println(json);
+//            send(session, json);
+//        } catch (IOException e) {
+//            System.out.println("发送ID失败" + session.getId());
+//        }
         printSessions();
     }
 
