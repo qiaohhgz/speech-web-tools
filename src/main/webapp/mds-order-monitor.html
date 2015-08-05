@@ -205,7 +205,29 @@
         ]
     });
 
+    $(document).on("touchstart keydown mousedown", function () {
+        console.log("key down");
+        isSend = true;
+    });
+
+    Reveal.addEventListener('slidechanged', function (event) {
+        // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+        if (newMsg == false) {
+            isSend = false;
+            var bean = new RemoteControl();
+            bean.action = RemoteControl.INDEX;
+            bean.index = [event.indexh, event.indexv];
+            var json = JSON.stringify(bean);
+            ws.send(json);
+            console.log("send " + json);
+        } else {
+            newMsg = false;
+        }
+    });
+
     var ws;
+    var isSend = false;
+    var newMsg = false;
     if (window.WebSocket) {
         ws = new WebSocket("ws://" + getPath() + "window.ws");
         ws.onmessage = function (obj) {
@@ -217,7 +239,7 @@
     }
     /* Doc : https://github.com/hakimel/reveal.js  */
     function onMessage(data) {
-//        debug(data);
+        newMsg = true;
         if (data.action == RemoteControl.UP) {
             Reveal.up();
         } else if (data.action == RemoteControl.DOWN) {
@@ -226,15 +248,27 @@
             Reveal.left();
         } else if (data.action == RemoteControl.RIGHT) {
             Reveal.right();
+        } else if (data.action == RemoteControl.INDEX) {
+            console.log(data);
+            var dH = data.index[0];
+            var dV = data.index[1];
+            Reveal.slide(dH, dV);
         }
     }
 </script>
 
 <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
     ga('create', 'UA-63535140-1', 'auto');
     ga('send', 'pageview');

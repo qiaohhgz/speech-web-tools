@@ -36,6 +36,7 @@ public class ClientApp extends AbstractApp {
         if (message == null || message.isEmpty()) {
             return;
         }
+        System.out.println("send " + message);
         for (Session client : getClients()) {
             if (client.isOpen()) {
                 client.getBasicRemote().sendText(message);

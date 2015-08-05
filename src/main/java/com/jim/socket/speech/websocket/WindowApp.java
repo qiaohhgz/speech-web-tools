@@ -28,8 +28,12 @@ public class WindowApp extends AbstractApp {
         if (message == null || message.isEmpty()) {
             return;
         }
+        System.out.println("window on msg " + message);
         for (Session client : clients) {
-            send(client, message);
+            if(client.equals(session) == false){
+                System.out.println("sent to client " + client.getId());
+                send(client, message);
+            }
         }
     }
 
